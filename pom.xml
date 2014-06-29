@@ -1,0 +1,279 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.antlr</groupId>
+    <artifactId>antlr4-complete</artifactId>
+    <version>4.3-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>ANTLR 4 Complete Bundle</name>
+    <description>
+        This package includes the ANTLR 4 Tool and Runtime libraries, along with
+        the complete set of code generation targets available at the time of
+        release.
+    </description>
+    <url>http://www.antlr.org</url>
+    <inceptionYear>1992</inceptionYear>
+    <organization>
+        <name>ANTLR</name>
+        <url>http://www.antlr.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The BSD License</name>
+            <url>http://www.antlr.org/license.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+
+        <developer>
+            <name>Terence Parr</name>
+            <url>http://antlr.org/wiki/display/~admin/Home</url>
+            <roles>
+                <role>Project lead - ANTLR</role>
+            </roles>
+        </developer>
+
+        <developer>
+            <name>Sam Harwell</name>
+            <url>http://tunnelvisionlabs.com</url>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java6.home>${env.JAVA6_HOME}</java6.home>
+        <bootclasspath.java6>${java6.home}/lib/rt.jar</bootclasspath.java6>
+        <bootclasspath.compile>${bootclasspath.java6}</bootclasspath.compile>
+        <bootclasspath.testCompile>${bootclasspath.java6}</bootclasspath.testCompile>
+    </properties>
+
+    <mailingLists>
+        <mailingList>
+            <name>antlr-discussion</name>
+            <archive>https://groups.google.com/forum/?fromgroups#!forum/antlr-discussion</archive>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/antlr/antlr4-complete/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/antlr/antlr4-complete/tree/master</url>
+        <connection>scm:git:git://github.com/antlr/antlr4-complete.git</connection>
+        <developerConnection>scm:git:git@github.com:antlr/antlr4-complete.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>4.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-python2</artifactId>
+            <version>4.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-python3</artifactId>
+            <version>4.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>sonatype-oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <configuration>
+                                    <compilerArgs>
+                                        <arg>-Xlint</arg>
+                                        <arg>-Xlint:-serial</arg>
+                                        <arg>-bootclasspath</arg>
+                                        <arg>${bootclasspath.compile}</arg>
+                                    </compilerArgs>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-testCompile</id>
+                                <configuration>
+                                    <compilerArgs>
+                                        <arg>-Xlint</arg>
+                                        <arg>-Xlint:-serial</arg>
+                                        <arg>-bootclasspath</arg>
+                                        <arg>${bootclasspath.testCompile}</arg>
+                                    </compilerArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgs>
+                        <arg>-Xlint</arg>
+                        <arg>-Xlint:-serial</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>false</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <createSourcesJar>true</createSourcesJar>
+                            <filters>
+                                <filter>
+                                    <artifact>org.antlr:antlr4</artifact>
+                                    <includes>
+                                        <include>org/antlr/v4/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.antlr:antlr4-runtime</artifact>
+                                    <includes>
+                                        <include>org/antlr/v4/runtime/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.antlr:antlr4-annotations</artifact>
+                                    <includes>
+                                        <include>org/antlr/v4/runtime/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.antlr:antlr4-python2</artifact>
+                                    <excludes>
+                                        <exclude>org/antlr/v4/codegen/AbstractPythonTarget**</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <include>org/antlr/v4/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.antlr:antlr4-python3</artifact>
+                                    <includes>
+                                        <include>org/antlr/v4/**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.antlr.v4.Tool</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <!-- override the version inherited from the parent -->
+                <version>2.2.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <!-- override the version inherited from the parent -->
+                <version>2.9.1</version>
+                <configuration>
+                    <quiet>true</quiet>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <!-- override the version inherited from the parent -->
+                <version>1.4</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <!-- override the version inherited from the parent -->
+                <version>2.4.2</version>
+                <configuration>
+                    <arguments>-Psonatype-oss-release ${release.arguments}</arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

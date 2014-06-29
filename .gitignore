@@ -1,0 +1,6 @@
+# NetBeans configuration files
+nbactions.xml
+nb-configuration.xml
+
+# Build output
+/target/
