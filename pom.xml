@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.antlr</groupId>
     <artifactId>antlr4-complete</artifactId>
-    <version>4.3-SNAPSHOT</version>
+    <version>4.3</version>
     <packaging>jar</packaging>
 
     <name>ANTLR 4 Complete Bundle</name>
@@ -78,7 +78,7 @@
         <url>https://github.com/antlr/antlr4-complete/tree/master</url>
         <connection>scm:git:git://github.com/antlr/antlr4-complete.git</connection>
         <developerConnection>scm:git:git@github.com:antlr/antlr4-complete.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>4.3</tag>
     </scm>
 
     <dependencies>
