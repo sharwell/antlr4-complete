@@ -83,12 +83,34 @@
 
     <dependencies>
 
+        <!--
+            PRIMARY ANTLR ARTIFACTS
+        -->
+
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
             <version>4.3</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-annotations</artifactId>
+            <version>4.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--
+            ADDITIONAL CODE GENERATION TARGETS
+        -->
 
         <dependency>
             <groupId>org.antlr</groupId>
@@ -256,6 +278,17 @@
                 <configuration>
                     <quiet>true</quiet>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <includeDependencySources>true</includeDependencySources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
